@@ -1,5 +1,5 @@
 ---
-title: 共度时艰
+title: 利用hexo、travis-ci打造属于你自己的博客
 ---
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
@@ -8,7 +8,7 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 ### Create a new post
 
 ``` bash
-$ hexo new "My New 共度时艰"
+$ hexo new "My New 利用hexo、travis-ci打造属于你自己的博客"
 ```
 
 More info: [Writing](https://hexo.io/docs/writing.html)
