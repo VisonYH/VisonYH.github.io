@@ -1,14 +1,10 @@
-# Hexo Configuration
-## Docs: https://hexo.io/docs/configuration.html
-## Source: https://github.com/hexojs/hexo/
-
 # Site
 title: 前端路远
-subtitle: ''
+subtitle: '一路前行'
 description: '前端修行'
 keywords: "个人前端技术博客"
 author: VisonYH
-language: zh-cn
+language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
@@ -67,6 +63,20 @@ tag_map:
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
 meta_generator: true
 
+#阅读时长和本文字数
+symbols_count_time:
+  symbols: true
+  time: true
+  total_symbols: true
+  total_time: true
+
+#搜索功能
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
@@ -98,3 +108,9 @@ deploy:
   type: git
   repository: https://gh_token@github.com/VisonYH/visonyh.github.io.git
   branch: master
+
+donate:
+  enable: true ## If you want to show the donate button after each post, please set the value to true and fill the following items according to your need. You can also enable donate button in a page by adding a "donate: true" item to the front-matter.
+  github: https://github.com/VisonYH ## GitHub URL, e.g. https://github.com/Kaiyuan/donate-page
+  alipay_qr: /img/test.jpg ## Path of Alipay QRcode image, e.g. /img/AliPayQR.png
+  ## wechat_qr: ## Path of Wechat QRcode image, e.g. /img/WeChatQR.png
