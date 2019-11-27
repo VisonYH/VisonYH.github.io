@@ -44,11 +44,11 @@ favicon:
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
 
-google_search: true ## Use Google search, true/false.
-baidu_search: true ## Use Baidu search, true/false.
+#google_search: true ## Use Google search, true/false.
+#baidu_search: true ## Use Baidu search, true/false.
 swiftype: ## Your swiftype_key, e.g. m7b11ZrsT8Me7gzApciT
 tinysou: ## Your tinysou_key, e.g. 4ac092ad8d749fdc6293
-self_search: false ## Use a jQuery-based local search engine, true/false.
+self_search: true ## Use a jQuery-based local search engine, true/false.
 google_analytics: ## Your Google Analytics tracking id, e.g. UA-42425684-2
 baidu_analytics: ## Your Baidu Analytics tracking id, e.g. 8006843039519956000
 fancybox: true ## If you want to use fancybox please set the value to true.
@@ -65,13 +65,14 @@ canvas_nest:
   zIndex: ## The z-index property of the background, e.g. "-1"
   count: ## Quantity of lines, e.g. "150"
 donate:
-  enable: false ## If you want to display the donate button after each post, please set the value to true and fill the following items on your need. You can also enable donate button in a page by adding a "donate: true" item to the front-matter.
-  github: ## GitHub URL, e.g. https://github.com/Kaiyuan/donate-page
-  alipay_qr: ## Path of Alipay QRcode image, e.g. /img/AliPayQR.png
-  wechat_qr: ## Path of Wechat QRcode image, e.g. /img/WeChatQR.png
-  btc_qr: ## Path of Bitcoin QRcode image, e.g. /img/BTCQR.png
-  btc_key: ## Bitcoin key, e.g. 1KuK5eK2BLsqpsFVXXSBG5wbSAwZVadt6L
-  paypal_url: ## Paypal URL, e.g. https://www.paypal.me/tufu9441
+  enable: true ## If you want to display the donate button after each post, please set the value to true and fill the following items on your need. You can also enable donate button in a page by adding a "donate: true" item to the front-matter.
+  github: https://github.com/VisonYH ## GitHub URL, e.g. https://github.com/Kaiyuan/donate-page
+  alipay_qr: /img/AliPayQR.png ## Path of Alipay QRcode image, e.g. /img/AliPayQR.png
+  wechat_qr: /img/WeChatQR.png ## Path of Wechat QRcode image, e.g. 
+  # btc_qr: ## Path of Bitcoin QRcode image, e.g. /img/BTCQR.png
+  # btc_key: ## Bitcoin key, e.g. 1KuK5eK2BLsqpsFVXXSBG5wbSAwZVadt6L
+  # paypal_url: ## Paypal URL, e.g. https://www.paypal.me/tufu9441
+
 post_copyright:
   enable: false ## If you want to display the copyright info after each post, please set the value to true and fill the following items on your need.
   author: ## Your author name, e.g. tufu9441
