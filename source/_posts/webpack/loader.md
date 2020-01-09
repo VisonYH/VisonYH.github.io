@@ -39,10 +39,71 @@ webpack loader是用来处理webpack模块的函数。在webpack中，一切皆�
  }
 ```
 
-
 ## webpack loader生命周期
 
-
-
+![webpack loader生命周期](/img/webpack学习笔记/webpack-loader执行过程.png)
 ## webpack loader编写
+以编写一个config-loader为例，实现.config文件的解析和加载。
 
+假设有这样一个.config文件：
+```bash
+API_PATH /api/
+IMG_PATH /assets/image/
+HOST www.example.com
+```
+
+通过代码```const { API_PATH } = require("/path/to/.config")```可以实现将该文件解析成javascript对象，轻松获取每一项配置。
+
+config-loader.js代码：
+```javascript
+// 用来获取webpack config文件中配置的loader options选项
+const loaderUtils = require('loader-utils');
+// 用来验证配置的正确性
+const validateOptions = require('schema-utils');
+
+const schema = {
+    type: 'object',
+    properties: {
+        test: {
+            type: 'string'
+        }
+    }
+};
+module.exports = function (source) {
+    // 获取配置项
+    const options = loaderUtils.getOptions(this);
+
+    validateOptions(schema, options, 'Example Loader');
+    // source 为匹配上的文件，编写loader的本质就是对source进行处理，以下是对source进行处理的过程
+    source = source.split('\n').filter(item => {
+        item = item.trim();
+        return /^[a-zA-Z]/.test(item);
+    })
+    let configs = source.reduce((prev, item) => {
+        item = /^(\w+)\s+(\.+)/g.exec(item);
+        if (item) {
+            prev[item[1]] = item[2]
+        }
+        return prev
+    }, {})
+    // 同步loader可以通过this.callback()或直接return返回处理好的结果
+    this.callback(null, `module.exports=${JSON.stringify(configs)}`);
+    // 异步loader需要通过调用this.async()获取callback函数，再将处理后的内容返回
+    // 注意：一定要在异步代码之后执行this.async(),不然默认直接返回了
+    // const callback = this.async();
+    // callback(null, `module.exports=${JSON.stringify(configs)}`);
+}
+```
+
+webpack规则配置：
+```javascript
+module: {
+    rules: [{
+        test: /\.config$/,
+        use: [{
+            loader: path.resolve('path/to/your-loader'), //替换成本地的loader路径
+        }],
+        exclude: /node_modules/
+    }]
+}
+```
