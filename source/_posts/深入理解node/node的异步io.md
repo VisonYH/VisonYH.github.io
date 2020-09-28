@@ -1,5 +1,16 @@
+---
+title: Node中的异步io
+toc: true
+comment: on
+donate: true
+tags:
+ - 异步io
+ - node.js
+categories:
+ - [博客]
+---
 
-##Node.js异步非阻塞io
+## Node.js异步非阻塞io
 
 - 异步基于多线程的。
 - 阻塞简单来说是函数执行先不返回真正结果，先返回特定值；
