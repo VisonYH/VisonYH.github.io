@@ -16,7 +16,7 @@ categories:
 
 首先`Selection`是一个`JS Object`，它代表页面中的文本选区，当有选中的文本返回时，代表的是一个或多个选中的文本区域对象；当没有选中时，可能代表的是最后一次点击的位置对象，也可能是个`type`为`none`的`Selection`对象。通过`window.getSelection()`方法可获得`Selection`对象，如下：
 
-![image-20201105170317885](./关于DOM中的Selection和Range.assets/image-20201105170317885.png)
+![image-20201105170317885](/img/dom/image-20201105170317885.png)
 
 #### 1.2 Selection对象的属性和方法
 
@@ -189,27 +189,27 @@ range.setEnd(endNode, endOffset);
 
 **定位方法：**
 
-[`Range.setStart()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setStart)
+- [`Range.setStart()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setStart)
 
 设置 `Range` 的起点。
 
-[`Range.setEnd()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setEnd)
+- [`Range.setEnd()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setEnd)
 
 设置 `Range` 的终点。
 
-[`Range.setStartBefore()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setStartBefore)
+- [`Range.setStartBefore()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setStartBefore)
 
 以其它[`节点`](https://developer.mozilla.org/zh-CN/docs/Web/API/Node)为基准，设置 `Range` 的起点。
 
-[`Range.selectNode()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/selectNode)
+- [`Range.selectNode()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/selectNode)
 
 使 `Range` 包含某个[`节点`](https://developer.mozilla.org/zh-CN/docs/Web/API/Node)及其内容。
 
-[`Range.selectNodeContents()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/selectNodeContents)
+- [`Range.selectNodeContents()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/selectNodeContents)
 
 使 `Range` 包含某个[`节点`](https://developer.mozilla.org/zh-CN/docs/Web/API/Node)的内容。
 
-[`Range.collapse()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/collapse)
+- [`Range.collapse()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/collapse)
 
 将 `Range` 折叠至其端点（boundary points，起止点，指起点或终点，下同）之一。
 
@@ -217,7 +217,7 @@ range.setEnd(endNode, endOffset);
 
 **编辑方法：**
 
-*通过以下方法，可以从 `Range` 中获得节点，改变 `Range` 的内容。*
+通过以下方法，可以从 `Range` 中获得节点，改变 `Range` 的内容。
 
 - [`Range.cloneContents()`](https://developer.mozilla.org/zh-CN/docs/Web/API/Range/cloneContents)
 
