@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>maven</title>
+    <url>/2020/11/06/maven/</url>
+    <content><![CDATA[<h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><p>项目下没有包仓库，统一集中在计算机maven安装时设置的仓库位置。</p>
+<h4 id="maven安装"><a href="#maven安装" class="headerlink" title="maven安装"></a>maven安装</h4><p>下载<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">maven</a>。</p>
+<ul>
+<li>windows<br>下载安装包，配置环境变量， 依赖JAVA_HOME。</li>
+<li>mac</li>
+</ul>
+<p>编辑<code>~/.bash_profile</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> MAVEN_HOME=/usr/<span class="built_in">local</span>/apache-maven-3.3.9</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;PATH&#125;</span>:<span class="variable">$&#123;MAVEN_HOME&#125;</span>/bin</span><br></pre></td></tr></table></figure>
+
+<h4 id="仓库种类"><a href="#仓库种类" class="headerlink" title="仓库种类"></a>仓库种类</h4><ul>
+<li><p>本地仓库<br>默认在系统用户目录/.m2/repositive<br>可以在默认在系统用户目录/.m2/config.xml中配置更改本地仓库位置 <code>&lt;localReposity&gt;/path/to/reposity&lt;/localReposity&gt;</code></p>
+</li>
+<li><p>远程仓库（私服）<br>  远程仓库没有找到仓库的时候，会继续到中央仓库寻找。</p>
+</li>
+<li><p>中央仓库<br>社区维护的仓库，几乎所有开源包</p>
+</li>
+</ul>
+<h4 id="maven项目标准目录结构"><a href="#maven项目标准目录结构" class="headerlink" title="maven项目标准目录结构"></a>maven项目标准目录结构</h4><ul>
+<li>src/main/java 核心代码目录</li>
+<li>src/main/resource 核心代码目录</li>
+<li>src/test/java 测试代码目录</li>
+<li>src/test/resource 测试代码目录</li>
+<li>src/main/webapp 页面资源 js、css图片等</li>
+</ul>
+<h4 id="maven常用命令"><a href="#maven常用命令" class="headerlink" title="maven常用命令"></a>maven常用命令</h4><ul>
+<li>mvn clean 清除编译好的内容</li>
+<li>mvn compile 编译</li>
+<li>mvn package 打包</li>
+<li>mvn install 在本地安装依赖</li>
+<li>mvn test-compile 编译测试代码</li>
+<li>mvn test 运行测试</li>
+<li>mvn tomcat:run 启动tomcat</li>
+<li>mvn deploy</li>
+</ul>
+<h4 id="maven生命周期"><a href="#maven生命周期" class="headerlink" title="maven生命周期"></a>maven生命周期</h4><p>下方命令包含以上每个命令</p>
+<ul>
+<li>编译 mvn compile</li>
+<li>测试 mvn test</li>
+<li>打包 mvn package</li>
+<li>安装 mvn install</li>
+<li>发布 mvn deploy</li>
+</ul>
+<h4 id="一键构建功能"><a href="#一键构建功能" class="headerlink" title="一键构建功能"></a>一键构建功能</h4>]]></content>
+  </entry>
+  <entry>
+    <title>关于DOM中的Selection和Range</title>
+    <url>/2020/11/06/DOM%E7%BC%96%E7%A8%8B/%E5%85%B3%E4%BA%8EDOM%E4%B8%AD%E7%9A%84Selection%E5%92%8CRange/</url>
+    <content><![CDATA[<h3 id="1-Selection"><a href="#1-Selection" class="headerlink" title="1. Selection"></a>1. Selection</h3><h4 id="1-1-Selection是什么？"><a href="#1-1-Selection是什么？" class="headerlink" title="1.1 Selection是什么？"></a>1.1 Selection是什么？</h4><blockquote>
+<p>Selection 对象表示用户选择的文本范围或插入符号的当前位置。</p>
+</blockquote>
+<p>首先<code>Selection</code>是一个<code>JS Object</code>，它代表页面中的文本选区，当有选中的文本返回时，代表的是一个或多个选中的文本区域对象；当没有选中时，可能代表的是最后一次点击的位置对象，也可能是个<code>type</code>为<code>none</code>的<code>Selection</code>对象。通过<code>window.getSelection()</code>方法可获得<code>Selection</code>对象，如下：</p>
+<p><img src="/img/dom/image-20201105170317885.png" alt="image-20201105170317885"></p>
+<h4 id="1-2-Selection对象的属性和方法"><a href="#1-2-Selection对象的属性和方法" class="headerlink" title="1.2 Selection对象的属性和方法"></a>1.2 Selection对象的属性和方法</h4><p><strong>属性：</strong></p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/anchorNode" target="_blank" rel="noopener"><code>anchorNode</code></a>只读</li>
+</ul>
+<p>返回该选区起点所在的节点（<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node" target="_blank" rel="noopener"><code>Node</code></a>）。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/anchorOffset" target="_blank" rel="noopener"><code>anchorOffset</code></a>只读</li>
+</ul>
+<p>返回一个数字，其表示的是选区起点在 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/anchorNode" target="_blank" rel="noopener"><code>anchorNode</code></a> 中的位置偏移量。</p>
+<p>​        (1). 如果 <code>anchorNode</code> 是文本节点，那么返回的就是从该文字节点的第一个字开始，直到被选中的第一个字之间的字数（如果第一个字就被选中，那么偏移量为零）。</p>
+<p>​        (2). 如果 <code>anchorNode</code> 是一个元素，那么返回的就是在选区第一个节点之前的同级节点总数。(这些节点都是 <code>anchorNode</code> 的子节点)</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/focusNode" target="_blank" rel="noopener"><code>focusNode</code></a>只读</li>
+</ul>
+<p>返回该选区终点所在的节点。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/focusOffset" target="_blank" rel="noopener"><code>focusOffset</code></a>只读</li>
+</ul>
+<p>返回一个数字，其表示的是选区终点在 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/focusNode" target="_blank" rel="noopener"><code>focusNode</code></a> 中的位置偏移量。</p>
+<p>​        (1). 如果 <code>focusNode</code> 是文本节点，那么选区末尾未被选中的第一个字，在该文字节点中是第几个字（从0开始计），就返回它。                          </p>
+<p>​        (2). 如果 <code>focusNode</code> 是一个元素，那么返回的就是在选区末尾之后第一个节点之前的同级节点总数。</p>
+<ul>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/isCollapsed" target="_blank" rel="noopener"><code>isCollapsed</code></a> 只读</p>
+<p>返回一个布尔值，用于判断选区的起始点和终点是否在同一个位置。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/rangeCount" target="_blank" rel="noopener"><code>rangeCount</code></a> 只读</p>
+<p>返回该选区所包含的连续范围的数量。</p>
+</li>
+</ul>
+<hr>
+<p><strong>方法：</strong></p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/getRangeAt" target="_blank" rel="noopener"><code>getRangeAt</code></a></li>
+</ul>
+<p>返回选区包含的指定区域（<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range" target="_blank" rel="noopener"><code>Range</code></a>）的<strong>引用</strong>。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/collapse" target="_blank" rel="noopener"><code>collapse</code></a></li>
+</ul>
+<p>将当前的选区折叠为一个点。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/extend" target="_blank" rel="noopener"><code>extend</code></a></li>
+</ul>
+<p>将选区的焦点移动到一个特定的位置。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/modify" target="_blank" rel="noopener"><code>modify</code></a></li>
+</ul>
+<p>修改当前的选区。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/collapseToStart" target="_blank" rel="noopener"><code>collapseToStart</code></a></li>
+</ul>
+<p>将当前的选区折叠到起始点。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/collapseToEnd" target="_blank" rel="noopener"><code>collapseToEnd</code></a></li>
+</ul>
+<p>将当前的选区折叠到最末尾的一个点。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/selectAllChildren" target="_blank" rel="noopener"><code>selectAllChildren</code></a></li>
+</ul>
+<p>将某一指定节点的子节点框入选区。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/addRange" target="_blank" rel="noopener"><code>addRange</code></a></li>
+</ul>
+<p>一个区域（<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range" target="_blank" rel="noopener"><code>Range</code></a>）对象将被加入选区。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/removeRange" target="_blank" rel="noopener"><code>removeRange</code></a></li>
+</ul>
+<p>从选区中移除一个区域。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/removeAllRanges" target="_blank" rel="noopener"><code>removeAllRanges</code></a></li>
+</ul>
+<p>将所有的区域都从选区中移除。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/deleteFromDocument" target="_blank" rel="noopener"><code>deleteFromDocument</code></a></li>
+</ul>
+<p>从页面中删除选区中的内容。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/selectionLanguageChange" target="_blank" rel="noopener"><code>selectionLanguageChange</code></a></li>
+</ul>
+<p>当键盘的朝向发生改变后修改指针的Bidi优先级。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/toString" target="_blank" rel="noopener"><code>toString</code></a></li>
+</ul>
+<p>返回当前选区的纯文本内容。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/containsNode" target="_blank" rel="noopener"><code>containsNode</code></a></li>
+</ul>
+<p>判断某一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node" target="_blank" rel="noopener"><code>Node</code></a> 是否为当前选区的一部分。</p>
+<hr>
+<h3 id="Range对象"><a href="#Range对象" class="headerlink" title="Range对象"></a>Range对象</h3><h4 id="1-什么是range对象"><a href="#1-什么是range对象" class="headerlink" title="1. 什么是range对象"></a>1. 什么是range对象</h4><blockquote>
+<p>接口表示一个包含节点与文本节点的一部分的文档片段.</p>
+</blockquote>
+<p>可以用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document" target="_blank" rel="noopener"><code>Document</code></a> 对象的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createRange" target="_blank" rel="noopener"><code>Document.createRange</code></a> 方法创建 Range，也可以用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection" target="_blank" rel="noopener"><code>Selection</code></a> 对象的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/getRangeAt" target="_blank" rel="noopener"><code>getRangeAt</code></a> 方法获取 Range。另外，还可以通过 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document" target="_blank" rel="noopener"><code>Document</code></a> 对象的构造函数 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/Range" target="_blank" rel="noopener"><code>Range()</code></a> 来得到 Range。</p>
+<p>####2. 创建Range方法</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createRange" target="_blank" rel="noopener"><code>document.createRange</code></a></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange();</span><br><span class="line">range.setStart(startNode, startOffset);</span><br><span class="line">range.setEnd(endNode, endOffset);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过<code>Selection</code>的<code>getRangeAt</code>方法</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> seleObj = <span class="built_in">window</span>.getSelection();</span><br><span class="line"><span class="keyword">var</span> range = selection.getRangeAt(index);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>直接通过Range构造函数</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> range = <span class="keyword">new</span> Range();</span><br><span class="line">range.setStart(startNode, startOffset);</span><br><span class="line">range.setEnd(endNode, endOffset);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-Range-属性和方法"><a href="#3-Range-属性和方法" class="headerlink" title="3. Range 属性和方法"></a>3. Range 属性和方法</h4><p><strong>属性：</strong></p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/collapsed" target="_blank" rel="noopener"><code>Range.collapsed</code></a> 只读</li>
+</ul>
+<p>返回一个表示 <code>Range</code> 的起始位置和终止位置是否相同的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Boolean" target="_blank" rel="noopener"><code>布尔值</code></a>。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/commonAncestorContainer" target="_blank" rel="noopener"><code>Range.commonAncestorContainer</code></a> 只读</li>
+</ul>
+<p>返回完整包含 <code>startContainer</code> 和 <code>endContainer</code> 的、最深一级的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node" target="_blank" rel="noopener"><code>节点</code></a>。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/endContainer" target="_blank" rel="noopener"><code>Range.endContainer</code></a> 只读</li>
+</ul>
+<p>返回包含 <code>Range</code> 终点的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node" target="_blank" rel="noopener"><code>节点</code></a>。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/endOffset" target="_blank" rel="noopener"><code>Range.endOffset</code></a> 只读</li>
+</ul>
+<p>返回一个表示 <code>Range</code> 终点在 <code>endContainer</code> 中的位置的数字。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/startContainer" target="_blank" rel="noopener"><code>Range.startContainer</code></a> 只读</li>
+</ul>
+<p>返回包含 <code>Range</code> 开始的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node" target="_blank" rel="noopener"><code>节点</code></a>。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/startOffset" target="_blank" rel="noopener"><code>Range.startOffset</code></a> 只读</li>
+</ul>
+<p>返回一个表示 <code>Range</code> 起点在 <code>startContainer</code> 中的位置的数字。</p>
+<hr>
+<p><strong>定位方法：</strong></p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setStart" target="_blank" rel="noopener"><code>Range.setStart()</code></a></li>
+</ul>
+<p>设置 <code>Range</code> 的起点。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setEnd" target="_blank" rel="noopener"><code>Range.setEnd()</code></a></li>
+</ul>
+<p>设置 <code>Range</code> 的终点。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/setStartBefore" target="_blank" rel="noopener"><code>Range.setStartBefore()</code></a></li>
+</ul>
+<p>以其它<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node" target="_blank" rel="noopener"><code>节点</code></a>为基准，设置 <code>Range</code> 的起点。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/selectNode" target="_blank" rel="noopener"><code>Range.selectNode()</code></a></li>
+</ul>
+<p>使 <code>Range</code> 包含某个<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node" target="_blank" rel="noopener"><code>节点</code></a>及其内容。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/selectNodeContents" target="_blank" rel="noopener"><code>Range.selectNodeContents()</code></a></li>
+</ul>
+<p>使 <code>Range</code> 包含某个<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node" target="_blank" rel="noopener"><code>节点</code></a>的内容。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/collapse" target="_blank" rel="noopener"><code>Range.collapse()</code></a></li>
+</ul>
+<p>将 <code>Range</code> 折叠至其端点（boundary points，起止点，指起点或终点，下同）之一。</p>
+<hr>
+<p><strong>编辑方法：</strong></p>
+<p>通过以下方法，可以从 <code>Range</code> 中获得节点，改变 <code>Range</code> 的内容。</p>
+<ul>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/cloneContents" target="_blank" rel="noopener"><code>Range.cloneContents()</code></a></p>
+<p>返回一个包含 <code>Range</code> 中所有节点的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/DocumentFragment" target="_blank" rel="noopener"><code>文档片段</code></a>。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/deleteContents" target="_blank" rel="noopener"><code>Range.deleteContents()</code></a></p>
+<p>从<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document" target="_blank" rel="noopener"><code>文档</code></a>中移除 <code>Range</code> 包含的内容。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/extractContents" target="_blank" rel="noopener"><code>Range.extractContents()</code></a></p>
+<p>把 <code>Range</code> 的内容从文档树移动到一个<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/DocumentFragment" target="_blank" rel="noopener"><code>文档片段</code></a>中。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/insertNode" target="_blank" rel="noopener"><code>Range.insertNode()</code></a></p>
+<p>在 <code>Range</code> 的起点处插入一个<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node" target="_blank" rel="noopener"><code>节点</code></a>。</p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range/surroundContents" target="_blank" rel="noopener"><code>Range.surroundContents()</code></a></p>
+<p>将 <code>Range</code> 的内容移动到一个新的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Node" target="_blank" rel="noopener"><code>节点</code></a>中。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>浏览器</tag>
+        <tag>DOM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机是怎么跑起来的/计算机的三大原则</title>
+    <url>/2020/11/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E6%80%8E%E4%B9%88%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E4%B8%89%E5%A4%A7%E5%8E%9F%E5%88%99/</url>
+    <content><![CDATA[<h4 id="计算机的三个根本性原则"><a href="#计算机的三个根本性原则" class="headerlink" title="计算机的三个根本性原则"></a>计算机的三个根本性原则</h4><p>1、计算机是执行输入、运算、输出的机器。</p>
+<p>2、程序是指令和数据的集合。</p>
+<p>3、计算机的处理方式有时和人的思维习惯不同。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>go语言/redis</title>
+    <url>/2020/11/06/go%E8%AF%AD%E8%A8%80/redis/</url>
+    <content><![CDATA[<h3 id="全局命令"><a href="#全局命令" class="headerlink" title="全局命令"></a>全局命令</h3><hr>
+<p>1、<code>keys *</code>      </p>
+<p>查看所有键，遍历所有键，线上禁止使用</p>
+<p>2、<code>dbsize</code>      </p>
+<p>键总数，直接读取redis内置变量</p>
+<p>3、<code>exists key</code></p>
+<p>检查键是否存在，1代表存在，0不存在。</p>
+<p>4、<code>del key [key ...]</code></p>
+<p>删除键，可删除多个。返回结果为删除成功键的个数，键不存在时返回0。</p>
+<p>5、<code>expire key seconds</code></p>
+<p>对键添加过期时间。单位为秒。<code>ttl key</code> 可观察键hello的剩余过期时间。</p>
+<p>6、<code>type key</code></p>
+<p>键的数据结构类型。返回<code>string</code>(字符串)、<code>hash</code>(哈希)、<code>list</code>(列表)、<code>set</code>(集合)、<code>zset</code>(有序集 合)等类型。</p>
+<p>7、<code>object encoding key</code></p>
+<p>查看内部编码类型。</p>
+<h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><hr>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><blockquote>
+<p>redis键都是字符串类型。</p>
+</blockquote>
+<p>常用命令：</p>
+<ul>
+<li><p><code>set key value [ex seconds] [px milliseconds] [nx|xx]</code>，ex seconds: 为键设置秒级过期时间，px milliseconds:为键设置毫秒级过期时间。nx: 键必须不存在，才能设置成功，用于添加。xx:与nx相反，键必须存在，才可以设置成功，用于更新。</p>
+</li>
+<li><p><code>mset key value</code>，批量设置值。</p>
+</li>
+<li><p><code>mget key</code>，批量获取值。</p>
+</li>
+<li><p><code>incr key</code>，key值为整数或不存在，加1，key值不为整数，返回错误。类似有<code>decr、decrby、incrby</code>等命令。</p>
+</li>
+</ul>
+<h4 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h4><p>#####常用命令：</p>
+<ul>
+<li><p><code>hset key field value</code>，设置值。</p>
+</li>
+<li><p><code>hget key field</code>，获取值。</p>
+</li>
+<li><p><code>hdel key field [field ...]</code>，删除值。</p>
+</li>
+<li><p><code>hlen key</code>，计算field个数。</p>
+</li>
+<li><p><code>hmset key field、hmget key field</code>，批量设置、获取。</p>
+</li>
+<li><p><code>hexists key field</code>，判断field是否存在。</p>
+</li>
+<li><p><code>hkeys key</code>，获取所有的field。</p>
+</li>
+<li><p><code>hvals key</code>，获取所有的value。</p>
+</li>
+</ul>
+<p>#####内部编码：</p>
+<ul>
+<li>ziplist(压缩列表)。</li>
+</ul>
+<blockquote>
+<p>哈希类型field个数小于hash-max-ziplist-entries 配置(默认512个)、同时所有值都小于hash-max-ziplist-value配置(默认64 字节)时，Redis会使用ziplist作为哈希的内部实现。ziplist使用更加紧凑的结构实现多个元素的连续存储，所以在节省内存方面比hashtable更加优秀。</p>
+</blockquote>
+<ul>
+<li>hashtable(哈希表)</li>
+</ul>
+<blockquote>
+<p>当哈希类型无法满足ziplist的条件时，Redis会使 用hashtable作为哈希的内部实现，因为此时ziplist的读写效率会下降，而 hashtable的读写时间复杂度为O(1)。</p>
+</blockquote>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><blockquote>
+<p>列表(list)类型是用来存储多个有序的字符串。</p>
+</blockquote>
+<p>#####常用命令：</p>
+<p>1、添加：</p>
+<ul>
+<li><code>rpush key value [value]</code></li>
+<li><code>lpush key value [value]</code></li>
+<li><code>linsert key before|after pivot value</code></li>
+</ul>
+<p>2、查找</p>
+<ul>
+<li><code>lrange key start end</code></li>
+<li><code>lindex key index</code></li>
+<li><code>llen key</code></li>
+</ul>
+<p>3、删除</p>
+<ul>
+<li><code>lpop key</code></li>
+<li><code>rpop key</code></li>
+<li><code>lrem count value</code></li>
+<li><code>ltrim key start end</code></li>
+</ul>
+<p>4、修改</p>
+<ul>
+<li><code>lset key index value</code></li>
+</ul>
+<p>5、阻塞操作</p>
+<ul>
+<li><code>blpop、 brpop</code></li>
+</ul>
+<p>#####内部编码</p>
+<ul>
+<li><p>ziplist(压缩列表):当列表的元素个数小于list-max-ziplist-entries配置 (默认512个)，同时列表中每个元素的值都小于list-max-ziplist-value配置时 (默认64字节)，Redis会选用ziplist来作为列表的内部实现来减少内存的使用。</p>
+</li>
+<li><p>linkedlist(链表):当列表类型无法满足ziplist的条件时，Redis会使用 linkedlist作为列表的内部实现。</p>
+</li>
+</ul>
+<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><blockquote>
+<p>集合(set)类型也是用来保存多个的字符串元素，但和列表类型不一 样的是，集合中不允许有重复元素，并且集合中的元素是无序的，不能通过 索引下标获取元素。</p>
+</blockquote>
+<h5 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h5><ul>
+<li><p><code>sadd key element [element]</code>    返回结果为添加成功的元素的个数</p>
+</li>
+<li><p><code>srem key element [element]</code>    返回结果为删除成功的元素的个数</p>
+</li>
+<li><p><code>scard key</code>                                      计算元素个数</p>
+</li>
+<li><p><code>sismember key element</code>              判断元素是否在集合中，在返回1，否则返回0</p>
+</li>
+<li><p><code>srandmember key [count]</code>          随机返回集合中的count个元素</p>
+</li>
+<li><p><code>spop key</code>                                        随机弹出一个元素</p>
+</li>
+<li><p><code>smembers key</code>                                获取所有元素</p>
+</li>
+<li><p><code>sinter key [key ...]</code>                求多个集合的交集</p>
+</li>
+<li><p><code>sunion key [key ...]</code>                求多个集合的并集</p>
+</li>
+<li><p><code>sdiff key [key ...]</code>                  求多个集合的差集</p>
+</li>
+</ul>
+<h5 id="内部编码"><a href="#内部编码" class="headerlink" title="内部编码"></a>内部编码</h5><ul>
+<li><p>intset(整数集合):当集合中的元素都是整数且元素个数小于set-max- intset-entries配置(默认512个)时，Redis会选用intset来作为集合的内部实现，从而减少内存的使用。</p>
+</li>
+<li><p>hashtable(哈希表):当集合类型无法满足intset的条件时，Redis会使 用hashtable作为集合的内部实现。</p>
+</li>
+</ul>
+<h4 id="有序集合"><a href="#有序集合" class="headerlink" title="有序集合"></a>有序集合</h4><h5 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h5><ul>
+<li><p><code>zadd key score member [score member ...]</code>   添加成员。</p>
+<p>参数：</p>
+<ul>
+<li>nx: member必须不存在，才可以设置成功，用于添加。 </li>
+<li>xx: member必须存在，才可以设置成功，用于更新。 </li>
+<li>ch: 返回此次操作后，有序集合元素和分数发生变化的个数。</li>
+<li>incr: 对score做增加，相当于后面介绍的zincrby。</li>
+</ul>
+</li>
+<li><p><code>zcard key</code>   计算成员个数。</p>
+</li>
+<li><p><code>zscore key member</code>   计算某个成员的分数，key不存在返回nil。</p>
+</li>
+<li><p><code>zrank key member</code>   计算成员的排名，<code>zrevrank key member</code>反之。</p>
+</li>
+<li><p><code>zrem key member [member ...]</code>   删除成员。</p>
+</li>
+<li><p><code>zincrby key increment member</code>   增加成员的分数。</p>
+</li>
+<li><p><code>zrange key start end [withscores]</code>   返回指定排名范围的成员。如果加上withscores选项，同时会返 回成员的分数。</p>
+</li>
+<li><p><code>zcount key min max</code>   返回指定分数范围成员个数。</p>
+</li>
+<li><p><code>zremrangebyrank key start end</code>   删除指定排名内的升序元素。</p>
+</li>
+<li><p><code>zremrangebyscore key min max</code>   删除指定分数范围的成员。</p>
+</li>
+</ul>
+<h5 id="内部编码-1"><a href="#内部编码-1" class="headerlink" title="内部编码"></a>内部编码</h5><ul>
+<li><p>ziplist(压缩列表):当有序集合的元素个数小于zset-max-ziplist- entries配置(默认128个)，同时每个元素的值都小于zset-max-ziplist-value配 置(默认64字节)时，Redis会用ziplist来作为有序集合的内部实现，ziplist 可以有效减少内存的使用。</p>
+</li>
+<li><p>skiplist(跳跃表):当ziplist条件不满足时，有序集合会使用skiplist作 为内部实现，因为此时ziplist的读写效率会下降。</p>
+</li>
+</ul>
+<h3 id="键管理"><a href="#键管理" class="headerlink" title="键管理"></a>键管理</h3><hr>
+<h5 id="单个键管理"><a href="#单个键管理" class="headerlink" title="单个键管理"></a>单个键管理</h5><ul>
+<li><code>rename key newkey</code>   键重命名。</li>
+</ul>
+<p>#####键过期</p>
+<ul>
+<li><p><code>expire key seconds</code>   键在seconds秒后过期。</p>
+</li>
+<li><p><code>expireat key timestamp</code>   键在秒级时间戳timestamp后过期。</p>
+</li>
+<li><p><code>ttl key</code>   查询键的剩余过期时间。  </p>
+<p>有3种返回值:</p>
+<ul>
+<li><p>大于等于0的整数: 键剩余的过期时间(ttl是秒，pttl是毫秒)。</p>
+</li>
+<li><p>-1: 键没有设置过期时间。</p>
+</li>
+<li><p>-2: 键不存在。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>注意：</p>
+<p>（1）如果expire key的键不存在，返回结果为0。</p>
+<p>（2）如果过期时间为负值，键会立即被删除，犹如使用del命令一样。</p>
+<p>（3）persist命令可以将键的过期时间清除。</p>
+<p>（4）对于字符串类型键，执行set命令会去掉过期时间。</p>
+<p>（5）Redis不支持二级数据结构(例如哈希、列表)内部元素的过期功 能，例如不能对列表类型的一个元素做过期时间设置。</p>
+<h5 id="键迁移"><a href="#键迁移" class="headerlink" title="键迁移"></a>键迁移</h5><p><code>migrate target_ip target_port [key...] destination-db timeout [copy|replace]</code></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>go语言/unsafe.pointer</title>
+    <url>/2020/11/06/go%E8%AF%AD%E8%A8%80/unsafe.pointer/</url>
+    <content><![CDATA[<p>unsafe.Pointer 万能地址类型，可指向任意类型的地址，也可转化为任意类型的地址。</p>
+<p>添加方法只能给自己包内创建的类型，类型别名的用处之一。</p>
+<p>接口就是一种类型。有的时候传参，可以传多种struct，这个时候抽象出一个接口类型，很美好。struct实现了接口的所有方法就实现了该接口。</p>
+<p>空接口 ：任何类型都实现了空接口。</p>
+<p>应用： 1、空接口作为函数的参数； 2、空接口作为map的值</p>
+<p>可以用</p>
+<p>1、<code>x.(T)</code>判断空接口变量的实际类型</p>
+<p>2、反射 <code>reflect.TypeOf(x)</code></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>go语言/概述</title>
+    <url>/2020/11/06/go%E8%AF%AD%E8%A8%80/%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<p>解释型语言 编译型语言</p>
+<p>2005年前后诞生，天生支持多核、并发。</p>
+<p>基本类型、 复合类型</p>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><blockquote>
+<p>类型和长度是数组的一部分。</p>
+</blockquote>
+<h5 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h5><p>初始化（未初始化前是零值）</p>
+<h5 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h5><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1基本方式</span></span><br><span class="line">a1 = [<span class="number">3</span>]<span class="keyword">bool</span>&#123;<span class="literal">true</span>, <span class="literal">true</span>, <span class="literal">true</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 根据初始值自动推断数组长度</span></span><br><span class="line">a10 = [...]<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据索引初始化</span></span><br><span class="line">a3 = [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:<span class="number">1</span>, <span class="number">4</span>: <span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h5><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">cities := [...]<span class="keyword">string</span>&#123;<span class="string">"北京"</span>, <span class="string">"上海"</span>, <span class="string">"深圳"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1、根据索引遍历</span></span><br><span class="line"><span class="keyword">for</span> i:= <span class="number">0</span>;i&lt;<span class="built_in">len</span>(cities); i++&#123;</span><br><span class="line">  fmt.Println(cities[i])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、 for range遍历</span></span><br><span class="line"><span class="keyword">for</span> _, v := <span class="keyword">range</span> cities &#123;</span><br><span class="line">  fmt.Println(v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>Node中的异步io</title>
+    <url>/2020/11/06/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3node/node%E7%9A%84%E5%BC%82%E6%AD%A5io/</url>
+    <content><![CDATA[<h2 id="Node-js异步非阻塞io"><a href="#Node-js异步非阻塞io" class="headerlink" title="Node.js异步非阻塞io"></a>Node.js异步非阻塞io</h2><ul>
+<li><p>异步基于多线程的。</p>
+</li>
+<li><p>阻塞简单来说是函数执行先不返回真正结果，先返回特定值；</p>
+</li>
+<li><p>通常来说，计算机的io（与内存相关）操作和CPU计算（与CPU相关）是可以并行执行的，但是同步的编程模型会让后续任务等待，造成资源不能被很好的利用。</p>
+</li>
+</ul>
+<h3 id="异步io与非阻塞io"><a href="#异步io与非阻塞io" class="headerlink" title="异步io与非阻塞io"></a>异步io与非阻塞io</h3><h5 id="非阻塞io-操作系统层面"><a href="#非阻塞io-操作系统层面" class="headerlink" title="非阻塞io(操作系统层面)"></a>非阻塞io(操作系统层面)</h5><blockquote>
+<p>操作系统会立即返回调用结果，只是这个结果不是真正的io处理结果，返回后，原调用方就不会阻塞。</p>
+</blockquote>
+<p>要得到真正的io处理结果，方式有以下几种：</p>
+<ul>
+<li>read，轮询, 通过重复调用检查io状态来完成完整数据的读取；</li>
+<li>select，它是在read的基础上改进的一种方案，通过对文件描述符上的事件状态来进行判断；select轮询具有一个较弱的限制，就是由于它采用一个1024长度的数组来存储状态， 所以它最多可以同时检查1024个文件描述符。</li>
+<li>poll, select的改进方案，采用链表的方式避免数组长度的限制，还能避免不必要的检查。？</li>
+<li>epoll 等到操作系统真正io处理完后，通过事件的方式通知调用方；</li>
+</ul>
+<h5 id="异步io-node层面实现"><a href="#异步io-node层面实现" class="headerlink" title="异步io(node层面实现)"></a>异步io(node层面实现)</h5><blockquote>
+<p>依赖事件循环实现。完成整个异步I/O环节的有事件循环、观察者和请求对象等。</p>
+</blockquote>
+<ul>
+<li><p>事件循环(node实现)<br>每执行一次循环的过程称为Tick。每个Tick的过程就是查看是否有事件待处理，如果有，就取出事件及其相关的回调函数。如果存在关联的回调函数，就执行它们。然后进入下个循环，如果不再有事件处理，就退出进程。      </p>
+</li>
+<li><p>观察者<br>事件循环的每个tick分为不同的阶段，大致有timers、pending callback、idle prepare、poll、check、close callback 5个阶段，详细参见<a href="https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener">官网</a>。每个阶段可以理解为有不同的观察者，例如网络io观察者、文件io观察者、定时器观察者等，事件的来源就是这些观察者维护的队列。那这些队列又是怎么来的？在nodejs的libuv或者操作系统底层完成某些任务后（例如文件io），便会向对应的观察者返回该任务对应的任务请求对象，这些观察者会根据这些对象的状态结果（通常有一个status字段），来生成对应的事件，如success or fail，从而在事件循环执行对应的回调函数（这里的回调就是我们自己写的业务逻辑了）。</p>
+</li>
+<li><p>请求对象<br>从JavaScript发起调用到内核执行完I/O操作的过程过程中，存在一种中间产物，它就是请求对象。这个请求对象包含了我们业务层所写的回调函数，这是异步io的关键，因为此时node就可以直接给我们返回某个待定值，主线程里我们所写的代码就可以继续执行下去了，不然就只能阻塞在这里，等事件循环系统给我们真实的结果，这一般是很耗时的。</p>
+<p>参见图，来源深入浅出node.js p59。<br><img src="https://s1.ax1x.com/2020/04/11/GbP5pn.png" alt="GbP5pn.png"></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>node.js</tag>
+        <tag>异步io</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Node.js的内存控制</title>
+    <url>/2020/11/06/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3node/node%E7%9A%84%E5%86%85%E5%AD%98%E6%8E%A7%E5%88%B6/</url>
+    <content><![CDATA[<p><code>node</code> 中<code>v8</code>的内存限制：64位系统下约为<code>1.4GB</code>，32位系统下约为<code>0.7GB</code>。</p>
+<h3 id="V8的对象分配"><a href="#V8的对象分配" class="headerlink" title="V8的对象分配"></a>V8的对象分配</h3><blockquote>
+<p>所有的<code>JavaScript</code>对象都是通过堆进行分配的。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">process.memoryUsage()</span><br><span class="line">&#123; </span><br><span class="line">  rss: <span class="number">24498176</span>, <span class="comment">//resident set size进程的常驻内存</span></span><br><span class="line">  heapTotal: <span class="number">9682944</span>, <span class="comment">//v8堆内存目前总容量</span></span><br><span class="line">  heapUsed: <span class="number">5583760</span>,  <span class="comment">//v8堆内存目前已使用</span></span><br><span class="line">  external: <span class="number">8739</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>node</code>进程的内存总共有几部分，一部分是<code>rss</code>，其余部分在交换区<code>(swap)</code>或者内存系统<code>(filesystem)</code>中。</p>
+<p>以<code>1.5GB</code>的垃圾回收堆内存为例，做一次小的垃圾回收大约需要<code>50ms</code>，一次非增量式的回收大约要<code>1s</code>。这显然令人无法接受。因此在浏览器端，限制V8使用的内存大小是一个可以接受的选择。但是在<code>node</code>端，这种方法肯定是行不通的。那node采用的是什么方法获取性能和垃圾回收的高效处理呢？</p>
+<h3 id="Node的垃圾回收机制"><a href="#Node的垃圾回收机制" class="headerlink" title="Node的垃圾回收机制"></a>Node的垃圾回收机制</h3><p>实际的应用中，对象的生存周期长短不一，不同的算法只能对特定场景才能起到最好的效果。</p>
+<p>node采用的垃圾回收算法（V8的内存分代）：在<code>V8</code>中，内存分为新生代和老生代。新生代可以理解为刚创建的对象，老生代是从新生代 “历劫” 过来的，存在时间已经比较长了。64位系统新生代内存大概可分配两个<code>reserved_semispace_size</code> 2*16MB，老生代大概<code>1400MB</code>，32位系统减半。</p>
+<ul>
+<li><p>2.1 新生代采用的算法（<code>Scavenge</code>算法）<br>主要使用<code>cheney</code>算法，将堆内存一分为二，采用复制的方式实现。在两个semispace空间中，只有一个处于使用状态（<code>From</code>空间）,另一个处于闲置状态（<code>To</code>空间）。进行一次新生代垃圾回收时，From空间中的存活对象会复制到<code>To</code>空间，然后<code>From</code>空间和To空间完成角色互换。</p>
+<ul>
+<li>新生代内存对象“晋升”到老生代内存：在一定条件下，需要将存活周期长的对象移动到老生代中。两个条件满足其一即可：<br>（i） 一个是对象是否经历过<code>Scavenge</code>回收<br>（ii）一个是To空间的内存占用比超过限制（<code>25%</code>）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3node/V8%E5%A0%86%E5%86%85%E5%AD%98%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="V8的堆内存示意图"></p>
+<ul>
+<li><p>2.2 老生代采用的算法</p>
+<ul>
+<li><p><code>Mark-Sweep</code>标记清除<br>分为标记和清除两个阶段。在标记阶段遍历所堆中的所有对象，并标记活着的对象；在清除阶段，只清除没有标记的对象。该方法不需要经历对象的复制，清除速度快，但是会产生不连续的内存空间，不利于接下来大内存的分配。</p>
+</li>
+<li><p><code>Mark-Compact</code>标记清理<br>在<code>Mark-Sweep</code>的基础上提出来，解决其产生不连续内存空间的问题。差别在于标记死亡的对象，将活着的对象往一端移动，移动完成后，直接清理另一端的内存。缺点是需要复制移动对象，速度较慢。</p>
+</li>
+<li><p><code>Incremental Marking</code>增量标记<br>为了保持内存空间对于应用逻辑和垃圾回收机制的一致性，进行垃圾回收时，一般需要将应用程序停下来。这种停顿对于新生代的垃圾回收来说，影响不大，毕竟新生代内存小，回收花费的时间少。但是对于老生代内存垃圾回收来说，回收停顿带来的影响就很大了。为了降低这种影响，提出一种增量标记的方法。在标记阶段，将原本需要一次性标记的过程分为多次，进行递进标记，<code>JavaScript</code>应用于垃圾回收交替执行，直到标记完，再进行整理。</p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>node.js</tag>
+        <tag>内存</tag>
+        <tag>垃圾回收</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>利用hexo、travis-ci打造专属博客</title>
+    <url>/2020/11/06/%E5%88%A9%E7%94%A8hexo%E3%80%81travis-ci%E6%89%93%E9%80%A0%E5%B1%9E%E4%BA%8E%E4%BD%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="1-hexo篇"><a href="#1-hexo篇" class="headerlink" title="1. hexo篇"></a>1. hexo篇</h2><h3 id="1-1-hexo是什么？"><a href="#1-1-hexo是什么？" class="headerlink" title="1.1 hexo是什么？"></a>1.1 hexo是什么？</h3><p>hexo是一个快速、简洁且高效的博客框架，通过一些预设的模板以及资源文件，将markdown等文件渲染成html页面。具有以下特点：</p>
+<ul>
+<li>作为npm包，安装、使用很方便；</li>
+<li>插件较多、主题多样，配置简单；</li>
+<li>部署方便，可以将生成的博客页面直接上传到github或其他仓库；</li>
+</ul>
+<h3 id="1-2-hexo的常用配置及操作"><a href="#1-2-hexo的常用配置及操作" class="headerlink" title="1.2 hexo的常用配置及操作"></a>1.2 hexo的常用配置及操作</h3><h4 id="1-2-1-hexo目录结构"><a href="#1-2-1-hexo目录结构" class="headerlink" title="1.2.1 hexo目录结构"></a>1.2.1 hexo目录结构</h4><p>通过hexo初始化博客站点之后，将生成如下的目录结构：</p>
+<figure class="highlight sqf"><table><tr><td class="code"><pre><span class="line">├── <span class="variable">_config</span>.yml     <span class="comment">//整个站点的配置中心，可以配置大部分参数，后面会详细说明</span></span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds       <span class="comment">//模板文件，对应有draft.md、page.md和post.md</span></span><br><span class="line">├── source          <span class="comment">//博客源文件(写博客的地方)</span></span><br><span class="line">|   ├── <span class="variable">_drafts</span>     <span class="comment">//草稿，通过hexo publish可以将草稿发布</span></span><br><span class="line">|   └── <span class="variable">_posts</span>      <span class="comment">//正式文章，Markdown 和 HTML 文件会被解析并放到 public 文件夹</span></span><br><span class="line">└── themes          <span class="comment">//主题，主题一般从github下载而来，一个主题对应一个文件夹</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-2-hexo常用命令"><a href="#1-2-2-hexo常用命令" class="headerlink" title="1.2.2 hexo常用命令"></a>1.2.2 hexo常用命令</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">clean     //清除产生的文件缓存，有时修改文件了hexo g不生效时可以试试。</span><br><span class="line">config    //获取和设置hexo配置</span><br><span class="line">deploy    //根据配置文件部署站点</span><br><span class="line">generate  //生成静态html博客页面</span><br><span class="line"><span class="built_in">help</span>      //程序员都知道</span><br><span class="line">init      //新建一个博客站点</span><br><span class="line">list      //显示本博客站点的信息</span><br><span class="line">migrate   //将其他站点迁移到hexo</span><br><span class="line">new       //新建文章</span><br><span class="line">publish   //将草稿文件夹内的草稿移至文章文件夹内，hexo g时将对其生效</span><br><span class="line">render    //Render files with renderer plugins.</span><br><span class="line">server    //起一个本地server，用来预览文章</span><br><span class="line">version   //显示hexo及各库的版本信息</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-3-配置文件选项"><a href="#1-2-3-配置文件选项" class="headerlink" title="1.2.3 配置文件选项"></a>1.2.3 配置文件选项</h4><p>一般在_config.yml中进行配置，由于配置项较多，且大多数都是直接使用默认值，需要改变的配置在下文会有详细说明，这里不再赘述，参见<a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">传送门</a>。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>hexo</tag>
+        <tag>travis-ci</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Http认证机制</title>
+    <url>/2020/11/06/%C2%A0%C2%A0%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/http%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>“HTTP/1.0” 包含了一种以 “用户名 + 密码” 的明文传输的访问认证规范，称之为“Basic Auth”，在没有类似ssl层保护的情况下，这种方案是很不安全的。后来，在此基础上引入了密码学的加密理论，“密码”通过加密后不再明文传输，演变为所谓的”Digest Access Authentication“。</p>
+</blockquote>
+<h3 id="Basic-Auth"><a href="#Basic-Auth" class="headerlink" title="Basic Auth"></a>Basic Auth</h3><h4 id="1-认证过程"><a href="#1-认证过程" class="headerlink" title="1.认证过程"></a>1.认证过程</h4><p>​    mdn文档给出的图清晰明了，认证过程如下图所示。客户端需要在请求头中添加<code>Authorization: Basic base64_encode(user:pass)”</code>字段，服务端对此进行校验，校验失败即返回403。如请求头中未包含该字段，则返回401。</p>
+<p><img src="/img/HTTPAuth.png" alt="img"></p>
+<h4 id="2-Basic-Auth-请求头的生成"><a href="#2-Basic-Auth-请求头的生成" class="headerlink" title="2. Basic Auth 请求头的生成"></a>2. Basic Auth 请求头的生成</h4><p>​    前面说到，Basic Auth的请求头格式为<code>Authorization: Basic base64_encode(user:pass)”</code>。首先，<code>Authorization</code>是<code>HTTP</code>协议用来认证的首部字段，<code>Basic</code>是<code>Authorization</code>的一种类型，代表Basic Auth。 后面的一串字符编码代表的是将用户名和密码以<code>user:pass</code>格式组成字符串，再利用base64进行编码。以JavaScript的npm包<a href="https://www.npmjs.com/package/js-base64" target="_blank" rel="noopener">js-base64</a>为例，使用如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Base64 &#125; <span class="keyword">from</span> <span class="string">'js-base64'</span>;</span><br><span class="line"><span class="keyword">let</span> nonceStr = Base64.encode(<span class="string">`<span class="subst">$&#123;name&#125;</span>:<span class="subst">$&#123;pass&#125;</span>`</span>);</span><br><span class="line"><span class="comment">// 请求头格式为: `Authorization: Basic $&#123;nonceStr&#125;`</span></span><br></pre></td></tr></table></figure>
+
+<p>​    服务端拿到Authorization首部字段后，利用base64反编码即可得到用户名密码，再查询数据库进行校验即可进行权限校验。服务端以node.js的<code>basic-auth</code>包为例。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> auth = <span class="built_in">require</span>(<span class="string">'basic-auth'</span>);</span><br><span class="line"><span class="keyword">var</span> user = auth(req)</span><br><span class="line"><span class="comment">// =&gt; &#123; name: 'something', pass: 'whatever' &#125;</span></span><br><span class="line"><span class="comment">// 拿到name和pass后即可进行权限校验</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Digest-Auth"><a href="#Digest-Auth" class="headerlink" title="Digest Auth"></a>Digest Auth</h3><p>参考 <a href="https://www.jianshu.com/p/78faeb3a90e6" target="_blank" rel="noopener">https://www.jianshu.com/p/78faeb3a90e6</a></p>
+<p><a href="https://www.npmjs.com/package/http-auth" target="_blank" rel="noopener">https://www.npmjs.com/package/http-auth</a></p>
+<p>###Auth 1.0</p>
+<h3 id="Auth-2-0"><a href="#Auth-2-0" class="headerlink" title="Auth 2.0"></a>Auth 2.0</h3><p>Bearer Token</p>
+<p><a href="https://blog.yorkxin.org/2013/09/30/oauth2-6-bearer-token.html" target="_blank" rel="noopener">https://blog.yorkxin.org/2013/09/30/oauth2-6-bearer-token.html</a></p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+        <tag>网络</tag>
+        <tag>认证</tag>
+        <tag>鉴权</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker三大概念</title>
+    <url>/2020/04/04/docker/Docker%E4%B8%89%E5%A4%A7%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<p>##Docker三大概念</p>
+<p>###镜像</p>
+<p>####镜像</p>
+<p>我们都知道，操作系统分为内核和用户空间。对于 Linux 而言，内核启动后，会挂载 <code>root</code> 文件系统为其提供用户空间支持。而 Docker 镜像（Image），就相当于是一个 <code>root</code> 文件系统。比如官方镜像 <code>ubuntu:18.04</code> 就包含了完整的一套 Ubuntu 18.04 最小系统的 <code>root</code> 文件系统。</p>
+<p>Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建之后也不会被改变。</p>
+<p>####分层存储</p>
+<p>因为镜像包含操作系统完整的 <code>root</code> 文件系统，其体积往往是庞大的，因此在 Docker 设计时，就充分利用 <a href="https://en.wikipedia.org/wiki/Union_mount" target="_blank" rel="noopener">Union FS</a> 的技术，将其设计为分层存储的架构。所以严格来说，镜像并非是像一个 ISO 那样的打包文件，镜像只是一个虚拟的概念，其实际体现并非由一个文件组成，而是由一组文件系统组成，或者说，由多层文件系统联合组成。</p>
+<p>镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生改变，后一层上的任何改变只发生在自己这一层。比如，删除前一层文件的操作，实际不是真的删除前一层的文件，而是仅在当前层标记为该文件已删除。在最终容器运行的时候，虽然不会看到这个文件，但是实际上该文件会一直跟随镜像。因此，在构建镜像的时候，需要额外小心，每一层尽量只包含该层需要添加的东西，任何额外的东西应该在该层构建结束前清理掉。</p>
+<p>分层存储的特征还使得镜像的复用、定制变的更为容易。甚至可以用之前构建好的镜像作为基础层，然后进一步添加新的层，以定制自己所需的内容，构建新的镜像。</p>
+<hr>
+<p>###容器</p>
+<p>镜像（<code>Image</code>）和容器（<code>Container</code>）的关系，就像是面向对象程序设计中的 <code>类</code> 和 <code>实例</code> 一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</p>
+<p>容器的实质是进程，但与直接在宿主执行的进程不同，容器进程运行于属于自己的独立的 <a href="https://en.wikipedia.org/wiki/Linux_namespaces" target="_blank" rel="noopener">命名空间</a>。因此容器可以拥有自己的 <code>root</code> 文件系统、自己的网络配置、自己的进程空间，甚至自己的用户 ID 空间。容器内的进程是运行在一个隔离的环境里，使用起来，就好像是在一个独立于宿主的系统下操作一样。这种特性使得容器封装的应用比直接在宿主运行更加安全。也因为这种隔离的特性，很多人初学 Docker 时常常会混淆容器和虚拟机。</p>
+<p>前面讲过镜像使用的是分层存储，容器也是如此。每一个容器运行时，是以镜像为基础层，在其上创建一个当前容器的存储层，我们可以称这个为容器运行时读写而准备的存储层为 <strong>容器存储层</strong>。</p>
+<p>容器存储层的生存周期和容器一样，容器消亡时，容器存储层也随之消亡。因此，任何保存于容器存储层的信息都会随容器删除而丢失。</p>
+<p>按照 Docker 最佳实践的要求，容器不应该向其存储层内写入任何数据，容器存储层要保持无状态化。所有的文件写入操作，都应该使用 <a href="https://yeasy.gitbook.io/docker_practice/data_management/volume" target="_blank" rel="noopener">数据卷（Volume）</a>、或者 <a href="https://yeasy.gitbook.io/docker_practice/data_management/bind-mounts" target="_blank" rel="noopener">绑定宿主目录</a>，在这些位置的读写会跳过容器存储层，直接对宿主（或网络存储）发生读写，其性能和稳定性更高。</p>
+<p>数据卷的生存周期独立于容器，容器消亡，数据卷不会消亡。因此，使用数据卷后，容器删除或者重新运行之后，数据却不会丢失。</p>
+<p>###仓库</p>
+<p>镜像构建完成后，可以很容易的在当前宿主机上运行，但是，如果需要在其它服务器上使用这个镜像，我们就需要一个集中的存储、分发镜像的服务，<a href="https://yeasy.gitbook.io/docker_practice/repository/registry" target="_blank" rel="noopener">Docker Registry</a> 就是这样的服务。</p>
+<p>一个 <strong>Docker Registry</strong> 中可以包含多个 <strong>仓库</strong>（<code>Repository</code>）；每个仓库可以包含多个 <strong>标签</strong>（<code>Tag</code>）；每个标签对应一个镜像。</p>
+<p>通常，一个仓库会包含同一个软件不同版本的镜像，而标签就常用于对应该软件的各个版本。我们可以通过 <code>&lt;仓库名&gt;:&lt;标签&gt;</code> 的格式来指定具体是这个软件哪个版本的镜像。如果不给出标签，将以 <code>latest</code> 作为默认标签。</p>
+<p>以 <a href="https://hub.docker.com/_/ubuntu" target="_blank" rel="noopener">Ubuntu 镜像</a> 为例，<code>ubuntu</code> 是仓库的名字，其内包含有不同的版本标签，如，<code>16.04</code>, <code>18.04</code>。我们可以通过 <code>ubuntu:16.04</code>，或者 <code>ubuntu:18.04</code> 来具体指定所需哪个版本的镜像。如果忽略了标签，比如 <code>ubuntu</code>，那将视为 <code>ubuntu:latest</code>。</p>
+<p>仓库名经常以 <em>两段式路径</em> 形式出现，比如 <code>jwilder/nginx-proxy</code>，前者往往意味着 Docker Registry 多用户环境下的用户名，后者则往往是对应的软件名。但这并非绝对，取决于所使用的具体 Docker Registry 的软件或服务。</p>
+<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><h3 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h3><blockquote>
+<p>切勿在没有配置 Docker YUM 源的情况下直接使用 yum 命令安装 Docker.</p>
+</blockquote>
+<p>####安装docker ce</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">$ sudo sh get-docker.sh --mirror Aliyun</span><br></pre></td></tr></table></figure>
+
+<p>####启动docker ce</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<p>####建立 docker 用户组</p>
+<p>默认情况下，<code>docker</code> 命令会使用 <a href="https://en.wikipedia.org/wiki/Unix_domain_socket" target="_blank" rel="noopener">Unix socket</a> 与 Docker 引擎通讯。而只有 <code>root</code> 用户和 <code>docker</code> 组的用户才可以访问 Docker 引擎的 Unix socket。出于安全考虑，一般 Linux 系统上不会直接使用 <code>root</code> 用户。因此，更好地做法是将需要使用 <code>docker</code> 的用户加入 <code>docker</code> 用户组。</p>
+<p>建立 <code>docker</code> 组：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo groupadd docker   <span class="comment">#建立 docker 组</span></span><br><span class="line">sudo usermod -aG docker <span class="variable">$USER</span>   <span class="comment">#将当前用户加入docker组</span></span><br></pre></td></tr></table></figure>
+
+<p>退出当前终端并重新登录，进行如下测试。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置加速"><a href="#配置加速" class="headerlink" title="配置加速"></a>配置加速</h4><p>对于使用 <a href="https://www.freedesktop.org/wiki/Software/systemd/" target="_blank" rel="noopener">systemd</a> 的系统，请在 <code>/etc/docker/daemon.json</code> 中写入如下内容（如果文件不存在请新建该文件）</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [</span><br><span class="line">​    <span class="string">"https://hub-mirror.c.163.com"</span>,</span><br><span class="line">​    <span class="string">"https://mirror.baidubce.com"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后重新启动服务。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<p>####检查加速器是否生效</p>
+<p>执行 <code>$ docker info</code>。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>编写webpack loader</title>
+    <url>/2019/12/16/webpack/loader/</url>
+    <content><![CDATA[<h2 id="webpack-loader是什么？"><a href="#webpack-loader是什么？" class="headerlink" title="webpack loader是什么？"></a>webpack loader是什么？</h2><p>webpack loader是用来处理webpack模块的函数。在webpack中，一切皆函数，js文件、图片、css文件都被webpack作为模块来打包。webpack本身一开始也就是个打包工具，只不过现在功能早已不局限在模块的打包了。loader就是webpack功能拓展的重要组成部分，用来对每个模块在打包时进行处理。实际上每个loader就是一个函数，其输入为对应的模块代码，输出为相应的处理之后的结果。</p>
+<h2 id="webpack-loader配置"><a href="#webpack-loader配置" class="headerlink" title="webpack loader配置"></a>webpack loader配置</h2><p>典型的webpack loader配置如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">   rules: [&#123;</span><br><span class="line">       <span class="comment">// 正则匹配该loader对应的模块，匹配到模块文件的将被该loader处理</span></span><br><span class="line">       test: <span class="regexp">/\.jsx?$/</span>,</span><br><span class="line">       <span class="comment">// 这里是匹配条件，每个选项都接收一个正则表达式或字符串</span></span><br><span class="line">       <span class="comment">// test 和 include 具有相同的作用，都是必须匹配选项</span></span><br><span class="line">       <span class="comment">// exclude 是必不匹配选项（优先于 test 和 include）</span></span><br><span class="line">       <span class="comment">// 最佳实践：</span></span><br><span class="line">       <span class="comment">// - 只在 test 和 文件名匹配 中使用正则表达式</span></span><br><span class="line">       <span class="comment">// - 在 include 和 exclude 中使用绝对路径数组</span></span><br><span class="line">       <span class="comment">// - 尽量避免 exclude，更倾向于使用 include</span></span><br><span class="line">       include: [</span><br><span class="line">         path.resolve(__dirname, <span class="string">"app"</span>)</span><br><span class="line">       ],</span><br><span class="line">       exclude: [</span><br><span class="line">         path.resolve(__dirname, <span class="string">"app/demo-files"</span>)</span><br><span class="line">       ],</span><br><span class="line">       loader: <span class="string">"babel-loader"</span>,</span><br><span class="line">       <span class="comment">// 配置loader参数，在loader中可以拿到这些参数  </span></span><br><span class="line">       options: &#123;</span><br><span class="line">         presets: [<span class="string">"es2015"</span>]</span><br><span class="line">       &#125;,</span><br><span class="line">     &#125;</span><br><span class="line">   ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="webpack-loader生命周期"><a href="#webpack-loader生命周期" class="headerlink" title="webpack loader生命周期"></a>webpack loader生命周期</h2><p><img src="/img/webpack%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/webpack-loader%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.png" alt="webpack loader生命周期"></p>
+<h2 id="webpack-loader编写"><a href="#webpack-loader编写" class="headerlink" title="webpack loader编写"></a>webpack loader编写</h2><p>以编写一个config-loader为例，实现.config文件的解析和加载。</p>
+<p>假设有这样一个.config文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">API_PATH /api/</span><br><span class="line">IMG_PATH /assets/image/</span><br><span class="line">HOST www.example.com</span><br></pre></td></tr></table></figure>
+
+<p>通过代码<code>const { API_PATH } = require(&quot;/path/to/.config&quot;)</code>可以实现将该文件解析成javascript对象，轻松获取每一项配置。</p>
+<p>config-loader.js代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 用来获取webpack config文件中配置的loader options选项</span></span><br><span class="line"><span class="keyword">const</span> loaderUtils = <span class="built_in">require</span>(<span class="string">'loader-utils'</span>);</span><br><span class="line"><span class="comment">// 用来验证配置的正确性</span></span><br><span class="line"><span class="keyword">const</span> validateOptions = <span class="built_in">require</span>(<span class="string">'schema-utils'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> schema = &#123;</span><br><span class="line">    type: <span class="string">'object'</span>,</span><br><span class="line">    properties: &#123;</span><br><span class="line">        test: &#123;</span><br><span class="line">            type: <span class="string">'string'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">source</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取配置项</span></span><br><span class="line">    <span class="keyword">const</span> options = loaderUtils.getOptions(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    validateOptions(schema, options, <span class="string">'Example Loader'</span>);</span><br><span class="line">    <span class="comment">// source 为匹配上的文件，编写loader的本质就是对source进行处理，以下是对source进行处理的过程</span></span><br><span class="line">    source = source.split(<span class="string">'\n'</span>).filter(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">        item = item.trim();</span><br><span class="line">        <span class="keyword">return</span> <span class="regexp">/^[a-zA-Z]/</span>.test(item);</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">let</span> configs = source.reduce(<span class="function">(<span class="params">prev, item</span>) =&gt;</span> &#123;</span><br><span class="line">        item = <span class="regexp">/^(\w+)\s+(\.+)/g</span>.exec(item);</span><br><span class="line">        <span class="keyword">if</span> (item) &#123;</span><br><span class="line">            prev[item[<span class="number">1</span>]] = item[<span class="number">2</span>]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prev</span><br><span class="line">    &#125;, &#123;&#125;)</span><br><span class="line">    <span class="comment">// 同步loader可以通过this.callback()或直接return返回处理好的结果</span></span><br><span class="line">    <span class="keyword">this</span>.callback(<span class="literal">null</span>, <span class="string">`module.exports=<span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(configs)&#125;</span>`</span>);</span><br><span class="line">    <span class="comment">// 异步loader需要通过调用this.async()获取callback函数，再将处理后的内容返回</span></span><br><span class="line">    <span class="comment">// 注意：一定要在异步代码之后执行this.async(),不然默认直接返回了</span></span><br><span class="line">    <span class="comment">// const callback = this.async();</span></span><br><span class="line">    <span class="comment">// callback(null, `module.exports=$&#123;JSON.stringify(configs)&#125;`);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>webpack规则配置：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [&#123;</span><br><span class="line">        test: <span class="regexp">/\.config$/</span>,</span><br><span class="line">        use: [&#123;</span><br><span class="line">            loader: path.resolve(<span class="string">'path/to/your-loader'</span>), <span class="comment">//替换成本地的loader路径</span></span><br><span class="line">        &#125;],</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>webpack</tag>
+        <tag>loader</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx配置语法</title>
+    <url>/2019/12/07/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Nginx%E9%85%8D%E7%BD%AE%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="Nginx配置语法"><a href="#Nginx配置语法" class="headerlink" title="Nginx配置语法"></a>Nginx配置语法</h2><ul>
+<li>配置文件由指令和指令块组成</li>
+<li>每条指令以分号结尾，指令和参数之间以空格分隔</li>
+<li>指令块以大括号将多条指令组织在一起</li>
+<li>include语句允许组合多个配置文件以提高可维护性</li>
+<li>使用#符号添加注释，提高可读性</li>
+<li>使用$符号使用变量</li>
+<li>部分指令的参数支持正则表达式</li>
+</ul>
+]]></content>
+      <categories>
+        <category>nginx学习笔记</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>初识nginx</title>
+    <url>/2019/12/07/nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%88%9D%E8%AF%86nginx/</url>
+    <content><![CDATA[<h2 id="1-Nginx的三个主要应用场景"><a href="#1-Nginx的三个主要应用场景" class="headerlink" title="1. Nginx的三个主要应用场景"></a>1. Nginx的三个主要应用场景</h2><ul>
+<li>静态资源服务<br>  通过本地文件系统提供服务</li>
+<li>反向代理服务<ul>
+<li>Nginx强大的性能</li>
+<li>缓存</li>
+<li>负载均衡</li>
+</ul>
+</li>
+<li>API服务<br>  OpenResty</li>
+</ul>
+<h2 id="2-Nginx主要优点"><a href="#2-Nginx主要优点" class="headerlink" title="2. Nginx主要优点"></a>2. Nginx主要优点</h2><ul>
+<li>高并发高性能</li>
+<li>可扩展性好</li>
+<li>高可靠性</li>
+<li>热部署</li>
+<li>SBD许可证(可修改源码商用)</li>
+</ul>
+<h2 id="3-Nginx组成"><a href="#3-Nginx组成" class="headerlink" title="3. Nginx组成"></a>3. Nginx组成</h2><ul>
+<li>Nginx二进制可执行文件</li>
+<li>Nginx.conf配置文件</li>
+<li>access.log访问日志</li>
+<li>error.log错误日志</li>
+</ul>
+<h2 id="4-编译安装Nginx"><a href="#4-编译安装Nginx" class="headerlink" title="4. 编译安装Nginx"></a>4. 编译安装Nginx</h2><h3 id="4-1-第一步：准备工作"><a href="#4-1-第一步：准备工作" class="headerlink" title="4.1 第一步：准备工作"></a>4.1 第一步：准备工作</h3><p>在<a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">官网</a>下载源码，选择最新<a href="http://nginx.org/download/nginx-1.16.1.tar.gz" target="_blank" rel="noopener">稳定版</a>，linux可使用wget下载。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span></span><br><span class="line">wget http://nginx.org/download/nginx-1.16.1.tar.gz</span><br><span class="line">tar xzf nginx-1.16.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> nginx-1.16.1</span><br></pre></td></tr></table></figure>
+
+<p>编译Nginx需要安装一些依赖工具。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-编译安装"><a href="#4-2-编译安装" class="headerlink" title="4.2 编译安装"></a>4.2 编译安装</h3><ul>
+<li><p>源码目录结构：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">auto   <span class="comment">#编译配置相关文件 </span></span><br><span class="line">CHANGES <span class="comment">#更新记录</span></span><br><span class="line">CHANGES.ru <span class="comment">#更新记录俄语版</span></span><br><span class="line">conf <span class="comment">#Nginx示例配置</span></span><br><span class="line">configure <span class="comment">#配置命令</span></span><br><span class="line">contrib <span class="comment">#vim语法高亮脚本</span></span><br><span class="line">html <span class="comment">#访问的默认html</span></span><br><span class="line">LICENSE <span class="comment">#许可证</span></span><br><span class="line">man <span class="comment">#man命令文档</span></span><br><span class="line">README </span><br><span class="line">src <span class="comment">#源码目录</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> nginx-1.16.1 <span class="comment">#进入目录</span></span><br><span class="line">./configure --<span class="built_in">help</span> <span class="comment">#查看自定义配置帮助</span></span><br><span class="line">./configure --with-http_v2_module <span class="comment">#配置，且使用http2模块</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make <span class="comment">#编译</span></span><br><span class="line">make install <span class="comment">#安装，默认安装在/usr/local目录下</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/nginx/sbin/ &amp;&amp; ./nginx <span class="comment">#启动nginx</span></span><br><span class="line"></span><br><span class="line">./nginx -s reload <span class="comment">#重载配置文件</span></span><br><span class="line">./nginx -s stop <span class="comment">#立刻关闭nginx</span></span><br><span class="line">./nginx -s quit <span class="comment">#优雅退出</span></span><br><span class="line">./nginx -t <span class="comment">#测试配置文件是否正确</span></span><br><span class="line">./nginx -s reopen <span class="comment">#日志切割</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置开机启动</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p>然后在底部增加 /usr/local/nginx/sbin/nginx，即可开机启动</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>nginx学习笔记</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络管理命令</title>
+    <url>/2019/12/04/linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="1-net-tools"><a href="#1-net-tools" class="headerlink" title="1. net-tools"></a>1. net-tools</h2><h3 id="1-1-ifconfig"><a href="#1-1-ifconfig" class="headerlink" title="1.1 ifconfig"></a>1.1 ifconfig</h3><ul>
+<li>eth0 第一块网卡(网络接口)</li>
+<li>lo </li>
+</ul>
+<h3 id="1-2-route"><a href="#1-2-route" class="headerlink" title="1.2 route"></a>1.2 route</h3><h3 id="1-3-netstat"><a href="#1-3-netstat" class="headerlink" title="1.3 netstat"></a>1.3 netstat</h3><h2 id="2-iproute2"><a href="#2-iproute2" class="headerlink" title="2. iproute2"></a>2. iproute2</h2><h3 id="2-1-ip"><a href="#2-1-ip" class="headerlink" title="2.1 ip"></a>2.1 ip</h3><h3 id="2-2-ss"><a href="#2-2-ss" class="headerlink" title="2.2 ss"></a>2.2 ss</h3>]]></content>
+  </entry>
+  <entry>
+    <title>x86架构</title>
+    <url>/2019/12/03/linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/x86%E6%9E%B6%E6%9E%84/</url>
+    <content><![CDATA[<h2 id="1-什么是x86架构？"><a href="#1-什么是x86架构？" class="headerlink" title="1. 什么是x86架构？"></a>1. 什么是x86架构？</h2><blockquote>
+<p>为抹平硬件环境的差异，使得操作系统用户不需要适配不同的底层硬件，x86架构应运而生。</p>
+</blockquote>
+<h2 id="2-计算机的工作模式"><a href="#2-计算机的工作模式" class="headerlink" title="2. 计算机的工作模式"></a>2. 计算机的工作模式</h2><h3 id="2-1-计算机硬件结构"><a href="#2-1-计算机硬件结构" class="headerlink" title="2.1 计算机硬件结构"></a>2.1 计算机硬件结构</h3><p><img src="/img/linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F.png" alt="计算机工作模式"></p>
+<h3 id="2-2-重点关系解析"><a href="#2-2-重点关系解析" class="headerlink" title="2.2 重点关系解析"></a>2.2 重点关系解析</h3><h4 id="2-2-1-CPU包含三个部分"><a href="#2-2-1-CPU包含三个部分" class="headerlink" title="2.2.1 CPU包含三个部分"></a>2.2.1 CPU包含三个部分</h4><ul>
+<li>运算单元，只做运算</li>
+<li>数据单元，CPU内部的缓存和寄存器组，空间极小，存储部分运算单元的中间值</li>
+<li>控制单元，指挥中心，负责指令调度</li>
+</ul>
+<h4 id="2-2-2-CPU、内存和硬盘的工作模式"><a href="#2-2-2-CPU、内存和硬盘的工作模式" class="headerlink" title="2.2.2 CPU、内存和硬盘的工作模式"></a>2.2.2 CPU、内存和硬盘的工作模式</h4><p><img src="/img/linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/CPU%E3%80%81%E5%86%85%E5%AD%98%E5%92%8C%E7%A1%AC%E7%9B%98%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F.png" alt="CPU、内存和硬盘的工作模式"></p>
+<h2 id="TODO-3-X86"><a href="#TODO-3-X86" class="headerlink" title="TODO 3.X86"></a>TODO 3.X86</h2>]]></content>
+      <categories>
+        <category>linux学习笔记</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>linux常用命令</title>
+    <url>/2019/12/02/linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">passwd <span class="comment">#修改当前用户密码</span></span><br><span class="line"></span><br><span class="line">useradd xxx <span class="comment">#添加xxx用户</span></span><br><span class="line">passwd xxx <span class="comment">#修改xxx用户密码</span></span><br><span class="line"></span><br><span class="line">rpm -qa <span class="comment">#查看已安装的软件列表</span></span><br><span class="line">rpm -e <span class="comment">#删除软件erase</span></span><br><span class="line">rpm -r <span class="comment">#删除软件remove</span></span><br><span class="line"></span><br><span class="line">yum install xxx <span class="comment">#使用yum安装软件</span></span><br><span class="line">yum erase xxx <span class="comment">#使用yum卸载软件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置环境变量</span></span><br><span class="line"><span class="built_in">export</span> xxx_HOME=/xxx/xxx </span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$xxx_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line">ls -lh <span class="comment">#以M为单位显示文件大小</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">shutdown -h now <span class="comment">#关机</span></span><br><span class="line">reboot -h now <span class="comment">#重启机器</span></span><br></pre></td></tr></table></figure>
+
+<p>文件打包压缩相关</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar xzvf xxx xxx1 <span class="comment">#将xxx解压到xxx1</span></span><br><span class="line">tar czf xxx1 xxx <span class="comment">#将xxx打包到xxx1，并且以gzip压缩</span></span><br><span class="line">tar cjf xxx1 xxx <span class="comment">#将xxx打包到xxx1，并且以bz2压缩</span></span><br><span class="line">-c <span class="comment">#建立新的压缩文件</span></span><br><span class="line">-r <span class="comment">#添加文件到已经压缩的文件</span></span><br><span class="line">-u <span class="comment">#添加改变了和现有的文件到已经存在的压缩文件</span></span><br><span class="line">-x <span class="comment">#从压缩的文件中提取文件</span></span><br><span class="line">-t <span class="comment">#显示压缩文件的内容</span></span><br><span class="line">-z <span class="comment">#支持gzip解压文件</span></span><br><span class="line">-j <span class="comment">#支持bzip2解压文件</span></span><br><span class="line">-v <span class="comment">#显示操作过程</span></span><br><span class="line">-k <span class="comment">#保留源有文件不覆盖</span></span><br><span class="line">-C <span class="comment">#切换到指定目录</span></span><br><span class="line">-f <span class="comment">#指定压缩文件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="linux程序启动的三种方式"><a href="#linux程序启动的三种方式" class="headerlink" title="linux程序启动的三种方式"></a>linux程序启动的三种方式</h3><ul>
+<li>shell交互命令行启动<br>在对应目录下，运行<code>./filename</code>即可执行，如已设置环境变量，可以不用<code>./</code>。</li>
+<li>后台运行<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nohup /xxxDir/xxx &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure></li>
+<li>以服务运行<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start xxx <span class="comment">#启动xxx服务</span></span><br><span class="line">ststemctl <span class="built_in">enable</span> xxx <span class="comment">#设置开机启动</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>linux学习笔记</category>
+      </categories>
+  </entry>
+</search>
