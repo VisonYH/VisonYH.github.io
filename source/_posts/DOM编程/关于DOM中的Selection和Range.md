@@ -16,7 +16,7 @@ categories:
 
 首先`Selection`是一个`JS Object`，它代表页面中的文本选区，当有选中的文本返回时，代表的是一个或多个选中的文本区域对象；当没有选中时，可能代表的是最后一次点击的位置对象，也可能是个`type`为`none`的`Selection`对象。通过`window.getSelection()`方法可获得`Selection`对象，如下：
 
-![image-20201105170317885](/Users/vison/Documents/visonyh.github.io/source/_posts/DOM编程/关于DOM中的Selection和Range.assets/image-20201105170317885.png)
+![image-20201105170317885](./关于DOM中的Selection和Range.assets/image-20201105170317885.png)
 
 #### 1.2 Selection对象的属性和方法
 

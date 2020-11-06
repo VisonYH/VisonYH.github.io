@@ -20,7 +20,7 @@ categories:
 
 ​    mdn文档给出的图清晰明了，认证过程如下图所示。客户端需要在请求头中添加`Authorization: Basic base64_encode(user:pass)”`字段，服务端对此进行校验，校验失败即返回403。如请求头中未包含该字段，则返回401。
 
-![img](/Users/sunwei/Documents/visonyh.github.io/source/img/HTTPAuth.png)
+![img](../../img/HTTPAuth.png)
 
 #### 2. Basic Auth 请求头的生成
 
