@@ -43,3 +43,26 @@ var user = auth(req)
 
 
 
+### Digest Auth
+
+参考 https://www.jianshu.com/p/78faeb3a90e6
+
+
+
+https://www.npmjs.com/package/http-auth
+
+
+
+
+
+###Auth 1.0
+
+
+
+### Auth 2.0
+
+Bearer Token
+
+
+
+https://blog.yorkxin.org/2013/09/30/oauth2-6-bearer-token.html
